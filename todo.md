@@ -71,6 +71,20 @@
 - [x] Validate the ZIP against a forbidden-path check
 - [x] Clarify the exact Vercel limitation and recommended full-stack hosting path
 
-- [ ] Fix the missing patched dependency reference that breaks Vercel install
-- [ ] Validate Vercel-compatible install and production build
-- [ ] Prepare a corrected ZIP and GitHub replacement instructions
+- [x] Fix the missing patched dependency reference that breaks Vercel install
+- [x] Validate Vercel-compatible install and production build
+- [x] Prepare a corrected ZIP and GitHub replacement instructions
+
+- [x] Validate the Vercel fix with a clean install outside the existing node_modules
+- [x] Deliver the corrected Vercel ZIP and explicit GitHub replacement steps
+
+- [x] Send the corrected Vercel ZIP to the user
+- [x] Provide explicit GitHub replacement steps before retrying Vercel
+
+- [ ] Diagnose the attached deployment error
+- [ ] Apply and validate the required deployment fix
+- [ ] Update custom-domain guidance for proofmesh.site
+
+- [ ] Ensure the client source directory and client/index.html are present in the GitHub repository
+- [ ] Validate the Vercel build from the repository contents
+- [ ] Add proofmesh.site custom-domain instructions and routing guidance
