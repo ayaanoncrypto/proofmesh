@@ -67,6 +67,10 @@
 - [x] Validate the final archive contents and build metadata
 - [x] Provide Vercel deployment steps and required environment variables
 
-- [ ] Rebuild the final ZIP excluding .manus and checkpoint artifacts
-- [ ] Validate the ZIP against a forbidden-path check
-- [ ] Clarify the exact Vercel limitation and recommended full-stack hosting path
+- [x] Rebuild the final ZIP excluding .manus and checkpoint artifacts
+- [x] Validate the ZIP against a forbidden-path check
+- [x] Clarify the exact Vercel limitation and recommended full-stack hosting path
+
+- [ ] Fix the missing patched dependency reference that breaks Vercel install
+- [ ] Validate Vercel-compatible install and production build
+- [ ] Prepare a corrected ZIP and GitHub replacement instructions
