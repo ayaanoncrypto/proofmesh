@@ -128,3 +128,22 @@
 - [x] Test contributeOnchain and releaseOnchain confirmation paths
 - [x] Reset release success state when opening or closing project modals
 - [x] Add direct tests for contributeOnchain and releaseOnchain
+
+- [x] Guide Vercel frontend deployment for proofmesh.site
+- [x] Verify the Vercel deployment and SPA routes after user login or manual steps
+- [x] Push the latest ProofMesh source to the public GitHub repository and confirm the Vercel commit
+- [x] Verify the user-reported origin push on the public GitHub main branch
+- [x] Sync the latest checkpoint source to GitHub with user takeover when required
+- [x] Check for GitHub Desktop or supported local GitHub tooling
+- [x] Inspect the user-uploaded ZIP for complete ProofMesh source and forbidden secrets
+- [x] Re-verify root, showcase, project detail, and create routes after the latest-source redeploy
+- [x] Verify the latest-source Vercel deployment on all key production routes
+- [x] Prepare the validated ZIP source for safe GitHub replacement
+- [x] Use GitHub web folder upload or Management UI export because GitHub Desktop is unavailable
+- [x] Fix Arbitrum Sepolia RPC rate-limit failure during wallet login
+- [x] Add RPC fallback and wallet balance recovery messaging
+- [x] Test wallet login and balance reads against the updated RPC path
+- [ ] Push the RPC fallback fix to GitHub and verify Vercel redeploy
+- [x] Add focused tests for first-RPC failure and second-RPC recovery
+- [ ] Retest connectWallet and balance loading with a real Arbitrum Sepolia wallet
+- [ ] Document the real-wallet verification result

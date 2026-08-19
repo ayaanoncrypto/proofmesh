@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { arbiscanTxUrl, confirmContributionTransactions, confirmReleaseTransaction, ensureArbitrumSepolia, waitForTransaction } from "../client/src/lib/wallet";
+import { ARBITRUM_SEPOLIA_READ_RPC_URLS, arbiscanTxUrl, confirmContributionTransactions, confirmReleaseTransaction, ensureArbitrumSepolia, waitForTransaction, withArbitrumSepoliaRpcFallback } from "../client/src/lib/wallet";
 import { MILESTONE_VAULT_CONFIG } from "../shared/contractConfig";
 
 afterEach(() => {
@@ -46,6 +46,26 @@ describe("ProofMesh wallet utilities", () => {
   it("confirms a release only when the receipt includes a hash", async () => {
     await expect(confirmReleaseTransaction({ wait: vi.fn().mockResolvedValue({ hash: "0xrelease" }) })).resolves.toEqual({ hash: "0xrelease" });
     await expect(confirmReleaseTransaction({ wait: vi.fn().mockResolvedValue({ hash: "" }) })).rejects.toThrow("not confirmed");
+  });
+
+  it("uses a fallback RPC list for Arbitrum Sepolia reads", () => {
+    expect(ARBITRUM_SEPOLIA_READ_RPC_URLS).toContain("https://sepolia-rollup.arbitrum.io/rpc");
+    expect(ARBITRUM_SEPOLIA_READ_RPC_URLS).toContain("https://arbitrum-sepolia-rpc.publicnode.com");
+  });
+
+  it("recovers when the first RPC rate-limits and the fallback succeeds", async () => {
+    const attempts: string[] = [];
+    const result = await withArbitrumSepoliaRpcFallback(async url => {
+      attempts.push(url);
+      if (attempts.length === 1) throw new Error("public rate limit exceeded");
+      return { nativeBalanceEth: "0.01", tokenBalance: "100" };
+    });
+    expect(result).toEqual({ nativeBalanceEth: "0.01", tokenBalance: "100" });
+    expect(attempts).toEqual(ARBITRUM_SEPOLIA_READ_RPC_URLS);
+  });
+
+  it("reports a recovery message when every RPC fails", async () => {
+    await expect(withArbitrumSepoliaRpcFallback(async () => { throw new Error("rate limited"); })).rejects.toThrow("balance lookup failed");
   });
 
   it("uses the deployed pUSDC token on Arbitrum Sepolia", () => {

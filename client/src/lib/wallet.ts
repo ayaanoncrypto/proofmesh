@@ -1,4 +1,4 @@
-import { BrowserProvider, Contract, JsonRpcSigner, parseUnits, formatUnits } from "ethers";
+import { BrowserProvider, Contract, JsonRpcProvider, JsonRpcSigner, parseUnits, formatUnits } from "ethers";
 import { MILESTONE_VAULT_CONFIG } from "@shared/contractConfig";
 
 declare global {
@@ -18,11 +18,16 @@ export type WalletSnapshot = {
   tokenBalance: string;
 };
 
+export const ARBITRUM_SEPOLIA_READ_RPC_URLS = [
+  "https://sepolia-rollup.arbitrum.io/rpc",
+  "https://arbitrum-sepolia-rpc.publicnode.com",
+];
+
 const ARBITRUM_SEPOLIA_PARAMS = {
   chainId: "0x66eee",
   chainName: "Arbitrum Sepolia",
   nativeCurrency: { name: "Sepolia Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: ["https://sepolia-rollup.arbitrum.io/rpc"],
+  rpcUrls: ARBITRUM_SEPOLIA_READ_RPC_URLS,
   blockExplorerUrls: [MILESTONE_VAULT_CONFIG.explorerBaseUrl],
 };
 
@@ -71,18 +76,33 @@ export async function readConnectedWallet(): Promise<WalletSnapshot | null> {
   return readWallet(provider, signer);
 }
 
-async function readWallet(provider: BrowserProvider, signer: JsonRpcSigner): Promise<WalletSnapshot> {
-  const network = await provider.getNetwork();
+export async function withArbitrumSepoliaRpcFallback<T>(read: (rpcUrl: string) => Promise<T>) {
+  let lastError: unknown;
+  for (const rpcUrl of ARBITRUM_SEPOLIA_READ_RPC_URLS) {
+    try {
+      return await read(rpcUrl);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw new Error(`Arbitrum Sepolia balance lookup failed. Check your RPC access and try again. ${lastError instanceof Error ? lastError.message : ""}`.trim());
+}
+
+async function readWallet(_injectedProvider: BrowserProvider, signer: JsonRpcSigner): Promise<WalletSnapshot> {
   const address = await signer.getAddress();
-  const nativeBalance = await provider.getBalance(address);
-  const token = new Contract(MILESTONE_VAULT_CONFIG.tokenAddress, MILESTONE_VAULT_CONFIG.tokenAbi, provider);
-  const tokenBalance = await token.balanceOf(address);
-  return {
-    address,
-    chainId: Number(network.chainId),
-    nativeBalanceEth: Number(formatUnits(nativeBalance, 18)).toFixed(4),
-    tokenBalance: formatUnits(tokenBalance, MILESTONE_VAULT_CONFIG.tokenDecimals),
-  };
+  return withArbitrumSepoliaRpcFallback(async rpcUrl => {
+    const provider = new JsonRpcProvider(rpcUrl, MILESTONE_VAULT_CONFIG.chainId, { staticNetwork: true });
+    const [nativeBalance, tokenBalance] = await Promise.all([
+      provider.getBalance(address),
+      new Contract(MILESTONE_VAULT_CONFIG.tokenAddress, MILESTONE_VAULT_CONFIG.tokenAbi, provider).balanceOf(address),
+    ]);
+    return {
+      address,
+      chainId: MILESTONE_VAULT_CONFIG.chainId,
+      nativeBalanceEth: Number(formatUnits(nativeBalance, 18)).toFixed(4),
+      tokenBalance: formatUnits(tokenBalance, MILESTONE_VAULT_CONFIG.tokenDecimals),
+    };
+  });
 }
 
 async function getContracts() {
