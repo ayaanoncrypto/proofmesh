@@ -143,7 +143,14 @@
 - [x] Fix Arbitrum Sepolia RPC rate-limit failure during wallet login
 - [x] Add RPC fallback and wallet balance recovery messaging
 - [x] Test wallet login and balance reads against the updated RPC path
-- [ ] Push the RPC fallback fix to GitHub and verify Vercel redeploy
+- [x] Push the RPC fallback fix to GitHub and verify Vercel redeploy
+- [x] Verify the user-reported RPC fix commit on GitHub and Vercel
 - [x] Add focused tests for first-RPC failure and second-RPC recovery
 - [ ] Retest connectWallet and balance loading with a real Arbitrum Sepolia wallet
+- [ ] Fix injected-wallet eth_getTransactionCount rate-limit failures during transaction preparation
+- [ ] Retest faucet, approval, contribution, and release transactions with the published full-stack app
+- [x] Audit production wallet, RPC, contract, API, and authentication failures for full rebuild
+- [ ] Rebuild and verify the complete Arbitrum Sepolia consumer flow end to end
+- [ ] Publish the full-stack ProofMesh runtime through the Management UI
+- [ ] Validate project creation, faucet, funding, proof review, approval, release, receipts, and persistence in production
 - [ ] Document the real-wallet verification result

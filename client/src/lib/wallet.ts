@@ -38,6 +38,12 @@ function requireEthereum() {
   return window.ethereum;
 }
 
+export async function repairArbitrumSepoliaRpc() {
+  const ethereum = requireEthereum();
+  await ethereum.request({ method: "wallet_addEthereumChain", params: [ARBITRUM_SEPOLIA_PARAMS] });
+  await ensureArbitrumSepolia();
+}
+
 export async function ensureArbitrumSepolia() {
   const ethereum = requireEthereum();
   const current = await ethereum.request({ method: "eth_chainId" });

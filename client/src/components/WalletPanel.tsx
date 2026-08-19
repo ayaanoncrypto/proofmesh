@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Droplets, ExternalLink, WalletCards } from "lucide-react";
+import { Droplets, ExternalLink, RefreshCw, WalletCards } from "lucide-react";
 import type { WalletSnapshot } from "@/lib/wallet";
 
-export function WalletPanel({ wallet, busy, onConnect, onFaucet }: { wallet: WalletSnapshot | null; busy: boolean; onConnect: () => void; onFaucet: () => void }) {
+export function WalletPanel({ wallet, busy, onConnect, onFaucet, onRepairNetwork }: { wallet: WalletSnapshot | null; busy: boolean; onConnect: () => void; onFaucet: () => void; onRepairNetwork: () => void }) {
   return (
     <Card className="border-cyan-200 bg-cyan-50/50">
       <CardHeader className="pb-3">
@@ -23,7 +23,7 @@ export function WalletPanel({ wallet, busy, onConnect, onFaucet }: { wallet: Wal
             <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-3 py-2 text-xs text-emerald-800">Connected to Arbitrum Sepolia. All balances and transactions below use testnet assets.</div>
             <div className="flex items-center justify-between gap-3 rounded-xl bg-white px-3 py-2 font-mono text-xs"><span className="truncate">{wallet.address}</span><a href={`https://sepolia.arbiscan.io/address/${wallet.address}`} target="_blank" rel="noreferrer" aria-label="Open wallet on Arbiscan"><ExternalLink size={13} /></a></div>
             <div className="grid grid-cols-2 gap-2 text-sm"><div className="rounded-xl bg-white p-3"><div className="font-mono text-[10px] uppercase text-slate-400">pUSDC</div><div className="mt-1 font-semibold">{Number(wallet.tokenBalance).toLocaleString()}</div></div><div className="rounded-xl bg-white p-3"><div className="font-mono text-[10px] uppercase text-slate-400">Gas ETH</div><div className="mt-1 font-semibold">{wallet.nativeBalanceEth}</div></div></div>
-            <Button onClick={onFaucet} disabled={busy} variant="outline" className="w-full rounded-full border-cyan-300 bg-white"><Droplets size={15} /> {busy ? "Waiting for wallet…" : "Request 10,000 test pUSDC"}</Button>
+            <Button onClick={onFaucet} disabled={busy} variant="outline" className="w-full rounded-full border-cyan-300 bg-white"><Droplets size={15} /> {busy ? "Waiting for wallet…" : "Request 10,000 test pUSDC"}</Button><Button onClick={onRepairNetwork} disabled={busy} variant="outline" className="w-full rounded-full border-slate-300 bg-white text-slate-700"><RefreshCw size={15} /> Repair Arbitrum RPC</Button>
           </div>
         )}
       </CardContent>
