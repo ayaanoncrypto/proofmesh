@@ -85,6 +85,13 @@
 - [ ] Apply and validate the required deployment fix
 - [ ] Update custom-domain guidance for proofmesh.site
 
-- [ ] Ensure the client source directory and client/index.html are present in the GitHub repository
-- [ ] Validate the Vercel build from the repository contents
-- [ ] Add proofmesh.site custom-domain instructions and routing guidance
+- [x] Ensure the client source directory and client/index.html are present in the GitHub repository
+- [x] Validate the Vercel build from the repository contents
+- [x] Add proofmesh.site custom-domain instructions and routing guidance
+
+- [ ] Confirm GitHub contains client/index.html after the replacement upload
+- [ ] Confirm Vercel succeeds from the updated GitHub commit
+
+- [ ] Add a Vercel SPA fallback so /showcase and other client routes resolve directly
+- [ ] Validate the Vercel configuration and production build
+- [ ] Package the route fix and provide redeployment steps for proofmesh.site
