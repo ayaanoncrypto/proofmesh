@@ -31,6 +31,11 @@ const ARBITRUM_SEPOLIA_PARAMS = {
   blockExplorerUrls: [MILESTONE_VAULT_CONFIG.explorerBaseUrl],
 };
 
+export function isWalletRpcRateLimitError(error: unknown) {
+  const text = error instanceof Error ? error.message : String(error ?? "");
+  return /routeme|public rate limit|rate.?limit|eth_blockNumber|eth_getTransactionCount/i.test(text);
+}
+
 function requireEthereum() {
   if (typeof window === "undefined" || !window.ethereum) {
     throw new Error("Install a browser wallet such as MetaMask to use Arbitrum Sepolia.");

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { ARBITRUM_SEPOLIA_READ_RPC_URLS, arbiscanTxUrl, confirmContributionTransactions, confirmReleaseTransaction, ensureArbitrumSepolia, waitForTransaction, withArbitrumSepoliaRpcFallback } from "../client/src/lib/wallet";
+import { ARBITRUM_SEPOLIA_READ_RPC_URLS, arbiscanTxUrl, confirmContributionTransactions, confirmReleaseTransaction, ensureArbitrumSepolia, isWalletRpcRateLimitError, waitForTransaction, withArbitrumSepoliaRpcFallback } from "../client/src/lib/wallet";
 import { MILESTONE_VAULT_CONFIG } from "../shared/contractConfig";
 
 afterEach(() => {
@@ -46,6 +46,12 @@ describe("ProofMesh wallet utilities", () => {
   it("confirms a release only when the receipt includes a hash", async () => {
     await expect(confirmReleaseTransaction({ wait: vi.fn().mockResolvedValue({ hash: "0xrelease" }) })).resolves.toEqual({ hash: "0xrelease" });
     await expect(confirmReleaseTransaction({ wait: vi.fn().mockResolvedValue({ hash: "" }) })).rejects.toThrow("not confirmed");
+  });
+
+  it("detects wallet provider RPC rate-limit errors", () => {
+    expect(isWalletRpcRateLimitError(new Error("public rate limit exceeded"))).toBe(true);
+    expect(isWalletRpcRateLimitError(new Error("eth_blockNumber failed"))).toBe(true);
+    expect(isWalletRpcRateLimitError(new Error("user rejected transaction"))).toBe(false);
   });
 
   it("uses a fallback RPC list for Arbitrum Sepolia reads", () => {

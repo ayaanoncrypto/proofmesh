@@ -148,7 +148,11 @@
 - [x] Add focused tests for first-RPC failure and second-RPC recovery
 - [ ] Retest connectWallet and balance loading with a real Arbitrum Sepolia wallet
 - [ ] Fix injected-wallet eth_getTransactionCount rate-limit failures during transaction preparation
+- [ ] Verify the pushed wallet RPC repair commit and full-stack deployment
 - [ ] Retest faucet, approval, contribution, and release transactions with the published full-stack app
+- [ ] Retest the Repair Arbitrum RPC action in the published app
+- [ ] Add explicit manual Rabby RPC replacement steps for Routeme rate-limit failures
+- [ ] Prevent faucet retries until wallet RPC recovery is confirmed
 - [x] Audit production wallet, RPC, contract, API, and authentication failures for full rebuild
 - [ ] Rebuild and verify the complete Arbitrum Sepolia consumer flow end to end
 - [ ] Publish the full-stack ProofMesh runtime through the Management UI
