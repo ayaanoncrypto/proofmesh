@@ -151,10 +151,17 @@
 - [ ] Verify the pushed wallet RPC repair commit and full-stack deployment
 - [ ] Retest faucet, approval, contribution, and release transactions with the published full-stack app
 - [ ] Retest the Repair Arbitrum RPC action in the published app
+- [ ] Verify the latest wallet guidance commit and published deployment
 - [ ] Add explicit manual Rabby RPC replacement steps for Routeme rate-limit failures
-- [ ] Prevent faucet retries until wallet RPC recovery is confirmed
+- [x] Prevent faucet retries until wallet RPC recovery is confirmed
 - [x] Audit production wallet, RPC, contract, API, and authentication failures for full rebuild
 - [ ] Rebuild and verify the complete Arbitrum Sepolia consumer flow end to end
 - [ ] Publish the full-stack ProofMesh runtime through the Management UI
 - [ ] Validate project creation, faucet, funding, proof review, approval, release, receipts, and persistence in production
 - [ ] Document the real-wallet verification result
+- [x] Add create-form validation for descriptions shorter than 20 characters
+- [ ] Push and publish the create-form validation fix
+- [ ] Assess and document the Vercel full-stack migration target
+- [ ] Move the Express tRPC and OAuth backend into Vercel-compatible server functions
+- [ ] Configure Vercel production database, OAuth, and server secrets
+- [ ] Run three ship-readiness validation passes on the Vercel product
