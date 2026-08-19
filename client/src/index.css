@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Space Grotesk', sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.985 0.003 190);
+  --foreground: oklch(0.18 0.02 220);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 220);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 220);
+  --primary: oklch(0.22 0.02 220);
+  --primary-foreground: oklch(0.98 0.003 190);
+  --secondary: oklch(0.96 0.01 190);
+  --secondary-foreground: oklch(0.3 0.03 220);
+  --muted: oklch(0.95 0.006 200);
+  --muted-foreground: oklch(0.52 0.025 220);
+  --accent: oklch(0.94 0.03 190);
+  --accent-foreground: oklch(0.24 0.03 220);
+  --destructive: oklch(0.61 0.21 25);
+  --destructive-foreground: oklch(0.98 0.003 190);
+  --border: oklch(0.89 0.014 210);
+  --input: oklch(0.89 0.014 210);
+  --ring: oklch(0.72 0.13 195);
+}
+
+* { @apply border-border outline-ring/50; }
+html { scroll-behavior: smooth; }
+body { @apply bg-background text-foreground; font-family: 'Space Grotesk', sans-serif; }
+button, input, textarea, select { font-family: inherit; }
+button:not(:disabled), a[href], select:not(:disabled) { @apply cursor-pointer; }
+
+.container { width: 100%; margin-inline: auto; padding-inline: 1rem; }
+@media (min-width: 640px) { .container { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container { max-width: 1280px; padding-inline: 2rem; } }
+
+.font-display { font-family: 'Space Grotesk', sans-serif; }
+.font-mono { font-family: 'DM Mono', monospace; }
+.blueprint-grid { background-image: linear-gradient(rgba(82, 105, 111, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(82, 105, 111, .055) 1px, transparent 1px); background-size: 32px 32px; }
+.blueprint-grid::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .32; background-image: radial-gradient(circle at 14% 22%, rgba(34, 197, 221, .11), transparent 20rem), radial-gradient(circle at 84% 44%, rgba(244, 166, 205, .1), transparent 18rem); z-index: -1; }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; line-height: 1.2; text-transform: uppercase; letter-spacing: .2em; color: #087d93; }
+.section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3.4rem, 7vw, 5.2rem); font-weight: 900; line-height: .92; letter-spacing: -.075em; color: #101820; }
+.nav-link { font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: #64748b; transition: color .18s ease; }
+.nav-link:hover { color: #087d93; }
+.field-label { font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: #64748b; }
+.grid-logo { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; transform: rotate(45deg); }
+.grid-logo span { display: block; border: 2px solid #101820; }
+.grid-logo span:nth-child(1) { grid-row: span 2; border-color: #22c5dd; }
+.grid-logo span:nth-child(2) { border-color: #101820; }
+.grid-logo span:nth-child(3) { border-color: #f3a5c7; }
+
+@media (max-width: 640px) { .blueprint-grid { background-size: 24px 24px; } .section-title { font-size: 3.4rem; } }

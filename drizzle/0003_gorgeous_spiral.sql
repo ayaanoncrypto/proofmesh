@@ -1,0 +1,1 @@
+ALTER TABLE `contributions` ADD `releasedUsdc` int DEFAULT 0 NOT NULL;
