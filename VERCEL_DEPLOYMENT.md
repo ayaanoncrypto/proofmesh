@@ -12,7 +12,7 @@ The current ZIP is not a direct full-stack Vercel deployment. Vercel does not ru
 
 ## Fix for the current Vercel error
 
-The latest log shows `Could not resolve entry module "client/index.html"`. The GitHub repository does not contain the `client` directory or its `index.html` file. Upload the complete contents of the corrected ZIP, including the `client`, `contracts`, `drizzle`, `scripts`, `server`, and `shared` directories. Do not upload only the root files.
+The prior log showed `Could not resolve entry module "client/index.html"`. The corrected source package includes the `client` directory and `client/index.html`. If Vercel still reports this error, confirm the GitHub repository root contains `client/index.html` before redeploying. Upload the complete source package, including the `client`, `contracts`, `drizzle`, `scripts`, `server`, and `shared` directories. Do not upload only root files.
 
 The safest update method is GitHub Desktop. Add the extracted ProofMesh folder as the local repository, review that `client/index.html` appears in the changed files, commit the changes, and push to the `main` branch. Then redeploy the Vercel project.
 
@@ -37,5 +37,5 @@ After a successful Vercel deployment, open Project Settings, choose Domains, and
 
 Network: Arbitrum Sepolia
 Chain ID: 421614
-MilestoneVault: `0xCcae743386E01c8c2354c32C1676aE97e1938834`
-Deployment transaction: `0x027f0c1a48858a18406ac28936ab2a40677ec5cc86d56b4730396974c3eb4984`
+MilestoneVault: `0x0ad4Bb05Ee71c831E45d1AF9873498E52B83b35C`
+Token-aware vault deployment transaction: recorded in `contracts/testnet.deployment.json` and verified against the active configuration.

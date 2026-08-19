@@ -1,5 +1,9 @@
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
+
+interface IERC20 {
+    function transfer(address to, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
 
 contract MilestoneVault {
     struct Milestone {
@@ -13,6 +17,7 @@ contract MilestoneVault {
         bool exists;
     }
 
+    IERC20 public immutable token;
     mapping(uint256 => Project) public projects;
     mapping(uint256 => Milestone[]) public milestones;
     mapping(uint256 => mapping(address => uint256)) public contributions;
@@ -20,6 +25,11 @@ contract MilestoneVault {
     event ProjectCreated(uint256 indexed projectId, address indexed creator, uint256 milestoneCount);
     event ContributionReceived(uint256 indexed projectId, address indexed funder, uint256 amount);
     event FundsReleased(uint256 indexed projectId, uint256 indexed milestoneId, address indexed recipient, uint256 amount);
+
+    constructor(address tokenAddress) {
+        require(tokenAddress != address(0), "Invalid token");
+        token = IERC20(tokenAddress);
+    }
 
     modifier projectExists(uint256 projectId) {
         require(projects[projectId].exists, "Project does not exist");
@@ -37,11 +47,12 @@ contract MilestoneVault {
         emit ProjectCreated(projectId, msg.sender, milestoneAmounts.length);
     }
 
-    function contribute(uint256 projectId) external payable projectExists(projectId) {
-        require(msg.value > 0, "Contribution is zero");
-        projects[projectId].balance += msg.value;
-        contributions[projectId][msg.sender] += msg.value;
-        emit ContributionReceived(projectId, msg.sender, msg.value);
+    function contribute(uint256 projectId, uint256 amount) external projectExists(projectId) {
+        require(amount > 0, "Contribution is zero");
+        require(token.transferFrom(msg.sender, address(this), amount), "Token transfer failed");
+        projects[projectId].balance += amount;
+        contributions[projectId][msg.sender] += amount;
+        emit ContributionReceived(projectId, msg.sender, amount);
     }
 
     function releaseMilestone(uint256 projectId, uint256 milestoneId) external projectExists(projectId) {
@@ -52,7 +63,7 @@ contract MilestoneVault {
         require(projects[projectId].balance >= milestone.amount, "Insufficient vault balance");
         milestone.released = true;
         projects[projectId].balance -= milestone.amount;
-        payable(projects[projectId].creator).transfer(milestone.amount);
+        require(token.transfer(projects[projectId].creator, milestone.amount), "Token release failed");
         emit FundsReleased(projectId, milestoneId, projects[projectId].creator, milestone.amount);
     }
 }

@@ -81,17 +81,50 @@
 - [x] Send the corrected Vercel ZIP to the user
 - [x] Provide explicit GitHub replacement steps before retrying Vercel
 
-- [ ] Diagnose the attached deployment error
-- [ ] Apply and validate the required deployment fix
-- [ ] Update custom-domain guidance for proofmesh.site
+- [x] Diagnose the attached deployment error
+- [x] Apply and validate the required deployment fix
+- [x] Update custom-domain guidance for proofmesh.site
 
 - [x] Ensure the client source directory and client/index.html are present in the GitHub repository
 - [x] Validate the Vercel build from the repository contents
 - [x] Add proofmesh.site custom-domain instructions and routing guidance
 
-- [ ] Confirm GitHub contains client/index.html after the replacement upload
-- [ ] Confirm Vercel succeeds from the updated GitHub commit
+- [x] Confirm GitHub contains client/index.html after the replacement upload
+- [x] Confirm Vercel succeeds from the updated GitHub commit
 
-- [ ] Add a Vercel SPA fallback so /showcase and other client routes resolve directly
-- [ ] Validate the Vercel configuration and production build
-- [ ] Package the route fix and provide redeployment steps for proofmesh.site
+- [x] Add a Vercel SPA fallback so /showcase and other client routes resolve directly
+- [x] Validate the Vercel configuration and production build
+- [x] Package the route fix and provide redeployment steps for proofmesh.site
+
+- [x] Prepare HackQuest project intro copy
+- [x] Create a ProofMesh logo asset for the submission form
+- [x] Prepare a concise demo-video recording script and upload checklist
+
+- [x] Produce a short ProofMesh demo video for HackQuest
+- [x] Include the public showcase, proof review, funding flow, and Arbitrum Sepolia deployment story
+- [x] Validate the MP4 and provide upload instructions
+
+- [x] Audit current wallet, contract, funding, release, auth, and API behavior
+- [x] Add real browser wallet connection on Arbitrum Sepolia
+- [x] Add testnet USDC configuration, balance display, and faucet guidance
+- [x] Add real MilestoneVault contribution transaction flow
+- [x] Add real milestone release transaction flow with confirmation states
+- [x] Add transaction history links to Arbiscan Sepolia
+- [x] Harden authenticated workspace loading and error states
+- [x] Add consumer-ready onboarding, network switching, and wallet safety copy
+- [x] Add Vitest coverage for wallet and transaction state utilities
+- [x] Run full typecheck, tests, production build, and responsive QA
+- [x] Update regression tests for the new token-aware MilestoneVault deployment address
+- [x] Document the wallet, contract, auth, and API audit findings
+- [x] Add explicit pending and success UI states for milestone releases
+- [x] Make every displayed transaction hash clickable on Arbiscan Sepolia
+- [x] Add explicit loading and error states to authenticated workspaces
+- [x] Expand testnet safety, approval, network switching, and recovery guidance
+- [x] Expand Vitest coverage for wallet network switching and transaction behavior
+- [x] Add persistent release success state and refresh modal data after release
+- [x] Link project-detail fallback transaction hashes to Arbiscan
+- [x] Add focused tests for contribution and release confirmation behavior
+- [x] Refresh selected modal state after invalidated project data loads
+- [x] Test contributeOnchain and releaseOnchain confirmation paths
+- [x] Reset release success state when opening or closing project modals
+- [x] Add direct tests for contributeOnchain and releaseOnchain

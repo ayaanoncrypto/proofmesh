@@ -46,9 +46,9 @@ export const appRouter = router({
   }),
   project: router({
     create: protectedProcedure.input(z.object({ title: z.string().min(3).max(180), description: z.string().min(20), category: z.enum(categories), goalUsdc: z.number().int().positive(), chain: z.string().default("Arbitrum Sepolia"), milestones: z.array(z.object({ title: z.string().min(2).max(180), description: z.string().min(5), proofUrl: z.string().url().optional(), amountUsdc: z.number().int().positive() })).min(1).max(5) })).mutation(({ ctx, input }) => createProject({ creatorId: ctx.user.id, ...input })),
-    contribute: protectedProcedure.input(z.object({ projectId: z.number().int().positive(), amountUsdc: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
-      const txHash = `0xproofmesh-demo-${Date.now().toString(16)}`;
-      const contributionId = await createContribution({ ...input, funderId: ctx.user.id, txHash });
+    contribute: protectedProcedure.input(z.object({ projectId: z.number().int().positive(), amountUsdc: z.number().int().positive(), txHash: z.string().min(8).optional() })).mutation(async ({ ctx, input }) => {
+      const txHash = input.txHash ?? `0xproofmesh-demo-${Date.now().toString(16)}`;
+      const contributionId = await createContribution({ projectId: input.projectId, amountUsdc: input.amountUsdc, funderId: ctx.user.id, txHash });
       const project = await getProjectById(input.projectId);
       if (project) await createNotification({ userId: project.project.creatorId, type: "contribution_received", title: "New funding pledge", body: `${ctx.user.name ?? "A funder"} pledged ${input.amountUsdc} USDC to ${project.project.title}.`, projectId: input.projectId });
       return { contributionId, txHash };
@@ -83,9 +83,9 @@ export const appRouter = router({
       await database.update(milestones).set({ status: "Approved", approvedAt: new Date() }).where(eq(milestones.id, input.milestoneId));
       return { status: "Approved" as const };
     }),
-    releaseMilestone: protectedProcedure.input(z.object({ milestoneId: z.number().int().positive(), projectId: z.number().int().positive(), amountUsdc: z.number().int().positive() })).mutation(async ({ input }) => {
-      const txHash = `0xrelease-${Date.now().toString(16)}`;
-      const release = await releaseMilestone({ ...input, txHash });
+    releaseMilestone: protectedProcedure.input(z.object({ milestoneId: z.number().int().positive(), projectId: z.number().int().positive(), amountUsdc: z.number().int().positive(), txHash: z.string().min(8).optional() })).mutation(async ({ input }) => {
+      const txHash = input.txHash ?? `0xrelease-${Date.now().toString(16)}`;
+      const release = await releaseMilestone({ milestoneId: input.milestoneId, projectId: input.projectId, amountUsdc: input.amountUsdc, txHash });
       const project = await getProjectById(input.projectId);
       if (project) await createNotification({ userId: project.project.creatorId, type: "funds_released", title: "Milestone funds released", body: `${input.amountUsdc} USDC released on Arbitrum Sepolia.`, projectId: input.projectId, milestoneId: input.milestoneId });
       return release;

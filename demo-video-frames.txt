@@ -1,0 +1,11 @@
+file '/home/ubuntu/screenshots/webdev-preview-root-1787104210964040854-1458.png'
+duration 4
+file '/home/ubuntu/screenshots/webdev-preview-showcase-1787092918188441444-1427.png'
+duration 4
+file '/home/ubuntu/screenshots/webdev-preview-project_1-1787103997381374104-9766.png'
+duration 5
+file '/home/ubuntu/screenshots/webdev-preview-create-1787103997008449913-2276.png'
+duration 5
+file '/home/ubuntu/screenshots/webdev-preview-funder-1787103846402204298-1797.png'
+duration 4
+file '/home/ubuntu/screenshots/webdev-preview-root-1787104210964040854-1458.png'

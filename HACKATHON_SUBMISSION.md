@@ -1,46 +1,55 @@
-# ProofMesh Hackathon Submission
+# ProofMesh HackQuest submission
 
-## One-line pitch
+## Project intro
 
-ProofMesh makes project funding milestone-native. Builders show evidence, funders see the trail, and capital releases against verified progress.
+ProofMesh is a milestone-based funding platform for builders, grant programs, and communities. Funders pledge testnet pUSDC. Builders publish evidence. Approvers release escrowed capital only after a milestone passes review. Every confirmed transaction links to Arbiscan on Arbitrum Sepolia.
 
 ## Three-minute demo script
 
-Start at `/showcase` without signing in. Point to the three seeded projects and the public stats. Explain that the judge sees the full funding loop without a login wall.
+Start at `https://proofmesh.site/showcase`. Show the public project index, seeded projects, milestone states, and public stats. Explain that judges can inspect the product without signing in.
 
-Open SignalGarden. Show the funding progress, category, creator label, and milestone timeline. Point to the proof URL on the submitted milestone. Explain that ProofMesh accepts GitHub, demo, and IPFS evidence.
+Open SignalGarden. Show funding progress, creator information, proof links, and the milestone timeline. Run the AI proof review after signing in. Explain that the review produces structured checks and a recommendation for the funder or designated approver.
 
-Click Run AI proof review after signing in. Show the structured recommendation and confidence returned by the server-side review flow. Explain that the review is an assistant, not a replacement for a funder or designated approver.
+Open the testnet wallet panel. Connect MetaMask. ProofMesh switches to Arbitrum Sepolia, shows Sepolia ETH and pUSDC balances, and provides a pUSDC faucet. Explain that the wallet must hold Sepolia ETH for gas and that the demo uses testnet assets only.
 
-Click Approve, then Release funds. Point to the generated transaction log and the Arbitrum Sepolia contract configuration. Explain that the current demo uses a database-backed release log until a real wallet deploys `MilestoneVault.sol`.
+Enter a pledge amount and click Fund with pUSDC. Approve the ERC-20 allowance in the wallet, then confirm the vault contribution. Show the stored transaction hash and its Arbiscan link in the funder history.
 
-Open the funding panel. Enter a pledge amount and record the contribution. Show the pledge status in the funder view and the creator notification in the workspace.
+For a creator flow, open the workspace and approve an eligible milestone. Click Release funds. Confirm the MilestoneVault transaction, show the persistent confirmation banner, and open the Arbiscan transaction link.
 
-Open `/create`. Enter a project title, description, category, goal, and three milestone records. Show the exact amount allocation check. Add a fourth or fifth milestone to demonstrate the one-to-five milestone constraint.
+Open `/create`. Define a title, description, category, funding goal, and one to five milestones. Show the exact allocation check. With a connected wallet, the database project record is followed by the on-chain vault creation call.
 
-Finish in `/dashboard`. Show the project ledger, activity stream, notification center, release ledger, and notification preference action.
+Finish in `/dashboard`. Show the project ledger, activity stream, notification center, wallet panel, release ledger, and transaction links.
 
 ## Submission checklist
 
 | Item | Status |
 | --- | --- |
 | Public showcase route works without authentication | Ready |
-| Project categories match the brief | Ready |
-| Milestone states match the brief | Ready |
-| Project states match the brief | Ready |
+| Project categories and milestone states match the brief | Ready |
 | Custom one-to-five milestone creation flow | Ready |
 | Proof URL and proof description flow | Ready |
-| Structured AI review API | Ready |
-| Approval and release mutation flow | Ready |
-| Contribution amount input and pledge record | Ready |
-| Notification center and preference API | Ready |
-| MilestoneVault.sol source | Ready |
-| Shared ABI and deployment address config | Ready |
-| Demo seed script | Ready |
-| Arbitrum Sepolia contract deployment | Wallet step required |
-| Replace zero deployment address with live address | Wallet step required |
-| Run `pnpm check`, `pnpm test`, and `pnpm build` | Run before submission |
+| Structured AI proof review | Ready |
+| Approval and release flow | Ready |
+| Real browser wallet connection | Ready on Arbitrum Sepolia |
+| pUSDC balance and faucet | Ready on Arbitrum Sepolia |
+| ERC-20 approval and vault contribution | Ready on Arbitrum Sepolia |
+| MilestoneVault release transaction | Ready on Arbitrum Sepolia |
+| Arbiscan links for confirmed transactions | Ready |
+| Notifications and preference API | Ready |
+| MilestoneVault.sol and TestUSDC.sol source | Ready |
+| Live token-aware MilestoneVault deployment | Ready |
+| Demo video | Record using the script above |
 
-## Final live-chain step
+## Live contract configuration
 
-Deploy `contracts/MilestoneVault.sol` to Arbitrum Sepolia, update `shared/contractConfig.ts`, test with a deployer wallet and a separate funder wallet, then capture one real release transaction for the submission video.
+Network: Arbitrum Sepolia
+
+Chain ID: 421614
+
+MilestoneVault: `0x0ad4Bb05Ee71c831E45d1AF9873498E52B83b35C`
+
+pUSDC token: `0xe8aB63...Ce5`, use the exact address shown in `shared/contractConfig.ts` for wallet configuration.
+
+## Consumer safety
+
+ProofMesh is testnet-only for this submission. Keep real assets out of the demo wallet. The application never asks for a seed phrase or private key. Users need Sepolia ETH for gas and pUSDC for funding.

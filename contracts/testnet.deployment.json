@@ -1,0 +1,10 @@
+{
+  "chainId": 421614,
+  "network": "Arbitrum Sepolia",
+  "deployer": "0xc2b0c6EB85505C8F333A72f0b6F95d59109e44aA",
+  "tokenAddress": "0xe8aB63b408735df6DaC9DDf197AaCFF3b66e1Ce5",
+  "tokenTransactionHash": "0x3a1759b854f35f28a89e9e89e145c48949f425b9297f6af44881658fe1574d1d",
+  "vaultAddress": "0x0ad4Bb05Ee71c831E45d1AF9873498E52B83b35C",
+  "vaultTransactionHash": "0xf918a82c24d9b83e79a84b95da83c77c3f4ba7bf069926f2baaa7be8aed89e33",
+  "explorer": "https://sepolia.arbiscan.io"
+}
